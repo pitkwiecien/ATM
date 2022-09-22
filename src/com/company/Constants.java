@@ -3,6 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Constants {
+    public static final PaymentMethods paymentMethods = new PaymentMethods();
     public static final Scanner consoleScanner = new Scanner(System.in);
     public static final float LOWEST_PRICE = 100f;
     public static final float HIGHEST_PRICE = 200f;

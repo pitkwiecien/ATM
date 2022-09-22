@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.company.Constants.consoleScanner;
 
@@ -20,6 +22,31 @@ public class AuxiliaryFunctions {
             }
         }
         return floatInput;
+    }
+
+    public static int getIntsBySemicolons(String errorMessage, boolean extendedVersion){
+        int ret = 0;
+        while (true){
+            try {
+                String input = consoleScanner.nextLine();
+                if(extendedVersion){
+                    if(Objects.equals(input.strip().toLowerCase(), "x")){
+                        return -1;
+                    } else  if(Objects.equals(input.strip().toLowerCase(), "z")){
+                        return  -2;
+                    }
+                }
+                String[] notes = input.split(";");
+                int[] intNotes = Arrays.stream(notes).map(Integer::parseInt).mapToInt(i -> i).toArray();
+                return IntStream.of(intNotes).sum();
+            } catch (NumberFormatException ignored){
+                System.out.print(errorMessage);
+            }
+        }
+    }
+
+    public static float cutFloat(float number, int digits){
+        return Math.round(number * (float) Math.pow(10f, digits)) / (float) Math.pow(10f, digits);
     }
 
     public static String getStringInput(String message, int length){
