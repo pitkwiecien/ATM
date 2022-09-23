@@ -80,12 +80,12 @@ public class PaymentMethods {
     }
 
     private int cashHandler(int payment){
-        float difference = payment - Globals.price;
-        if(difference >= 0){
-            System.out.println("Płatność zakończona sukcesem, reszta wynosi " + difference);
+        float difference = -1 * (AuxiliaryFunctions.cutFloat(payment - Globals.price, 2));
+        if(difference <= 0){
+            System.out.println("Płatność zakończona sukcesem, reszta wynosi " + -1 * difference);
             printReceipt();
         } else {
-            System.out.print("Za mało gotówki - brakuje ci " + Math.abs(AuxiliaryFunctions.cutFloat(difference, 2)) + ". Dołóż banknoty albo wpisz \"X\" żeby zakończyć transakcję albo wpisz \"Z\" żeby zmienić sposób płatności: ");
+            System.out.print("Za mało gotówki - brakuje ci " + difference + ". Dołóż banknoty albo wpisz \"X\" żeby zakończyć transakcję albo wpisz \"Z\" żeby zmienić sposób płatności: ");
             return AuxiliaryFunctions.getIntsBySemicolons("Wybierz \"X\", \"Z\" lub podaj banknoty rozdzielone \";\": ", true);
         }
         return -1;
