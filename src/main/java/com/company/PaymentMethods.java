@@ -9,6 +9,8 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Objects;
 
+import com.company.dto.BlikDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,9 +51,13 @@ public class PaymentMethods {
 
     public boolean blik() throws IOException, JSONException {
         String blikCode = AuxiliaryFunctions.getStringInput("Podaj kod BLIK: ", 6);
+
         JSONObject jsonObject = AuxiliaryFunctions.getJsonObject(MessageFormat.format("{0}blik/{1}/", Constants.url, blikCode));
         System.out.println(jsonObject);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        BlikDTO blikDTO = objectMapper.readValue(jsonObject.toString(), BlikDTO.class);
+        System.out.println(blikDTO.toString());
         return false;
     }
 
@@ -60,7 +66,7 @@ public class PaymentMethods {
         int payment = AuxiliaryFunctions.getIntsBySemicolons("Niepoprawna kwota, spróbuj jeszcze raz: ", false);
         int ret = cashHandler(payment);
         while(true){
-            switch (ret){dto
+            switch (ret){
                 case -1:
                     return false;
                 case -2:

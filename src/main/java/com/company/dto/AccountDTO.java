@@ -1,12 +1,9 @@
 package com.company.dto;
 
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
 public class AccountDTO {
     private int id;
     private String name;

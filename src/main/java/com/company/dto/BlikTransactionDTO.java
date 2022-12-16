@@ -1,12 +1,10 @@
 package com.company.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Component
 public class BlikTransactionDTO {
     private int id;
     private String blikCode;
@@ -63,5 +61,17 @@ public class BlikTransactionDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "BlikTransactionDTO{" +
+                "\nid=" + id +
+                "\nblikCode='" + blikCode + '\'' +
+                "\nverified=" + verified +
+                "\nexecuted=" + executed +
+                "\namount=" + amount +
+                "\ndate=" + date +
+                "\n}";
     }
 }

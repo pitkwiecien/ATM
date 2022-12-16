@@ -1,11 +1,9 @@
 package com.company.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
 public class CardDTO {
     AccountDTO accountDto;
     private int cvv;

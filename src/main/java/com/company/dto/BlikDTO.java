@@ -1,8 +1,12 @@
 package com.company.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlikDTO {
     private String code;
@@ -47,5 +51,17 @@ public class BlikDTO {
 
     public List<BlikTransactionDTO> getTransactions() {
         return transactions;
+    }
+
+    @Override
+    public String toString() {
+        return "BlikDTO{" +
+                "\n\tcode='" + code + '\'' +
+                "\n\taccountId=" + accountId +
+                "\n\texpirationDate=" + expirationDate +
+                "\n\tcreationDate=" + creationDate +
+                "\n\ttransactions=[" + transactions.stream().map(Object::toString).collect(Collectors.joining("\n\t\t")) +
+                "\n\t]" +
+                "\n}";
     }
 }
