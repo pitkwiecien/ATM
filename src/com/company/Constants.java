@@ -1,5 +1,7 @@
 package com.company;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 
 public class Constants {
@@ -12,4 +14,6 @@ public class Constants {
             new Card("12425444656565654644", "1242", 2000f, 200f, "4231"),
             new Card("34445444656565654644", "6565", 19400f, 1000f, "3241")
     };
+    public static final String ACCESS_TOKEN = "r392jnfv2-almf92nww1-ld:fwfa";
+    public static String url = new String("http://192.168.1.109:8080/api/");
 }

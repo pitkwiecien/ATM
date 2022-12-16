@@ -1,8 +1,12 @@
 package com.company;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 import static com.company.Constants.paymentMethods;
 
-public class Main {
+public class    Main {
 
     public static void main(String[] args) {
         Globals.initiatePrice();
@@ -24,7 +28,12 @@ public class Main {
                 if (paymentMethod == PaymentMethodEnum.CARD) {
                     repeat = paymentMethods.card();
                 } else {
-                    repeat = paymentMethods.blik();
+                    try {
+                        repeat = paymentMethods.blik();
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                        repeat = false;
+                    }
                 }
             } else {
                 repeat = paymentMethods.cash();

@@ -1,8 +1,16 @@
 package com.company;
 
-import com.sun.source.tree.BreakTree;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.MessageFormat;
 import java.util.Objects;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.company.Graphics.printConfirmation;
 import static com.company.Graphics.printReceipt;
@@ -39,26 +47,11 @@ public class PaymentMethods {
         return false;
     }
 
-    public boolean blik(){
-        String blikCode = AuxiliaryFunctions.getStringInput("Podaj kod BLIK: ", 4);
-        Card card = AuxiliaryFunctions.getCard(blikCode, true);
-        if(card == null){
-            System.out.println("Niepoprawny kod BLIK");
-        } else if(card.getMoney() < Globals.price){
-            System.out.println("Niewystarczające środki na karcie!");
-        } else if(card.getDailyLimit() < Globals.price) {
-            System.out.println("Przekroczono dzienny limit karty!");
-        } else if(AuxiliaryFunctions.getRandom(5)){
-            System.out.println("Nie potwierdzono transakcji na telefonie!");
-        } else if(AuxiliaryFunctions.getRandom(5)){
-            System.out.println("Pobranie środków się nie udało!");
-        } else {
-            System.out.print("Czy drukować potwierdzenie (0 - nie, 1 - tak): ");
-            if(AuxiliaryFunctions.getIntInput("Wpisz liczbę 0 lub 1 w zależności od twojego wyboru: ", new int[]{0, 1}) == 1){
-                printConfirmation();
-            }
-            printReceipt();
-        }
+    public boolean blik() throws IOException, JSONException {
+        String blikCode = AuxiliaryFunctions.getStringInput("Podaj kod BLIK: ", 6);
+        JSONObject jsonObject = AuxiliaryFunctions.getJsonObject(MessageFormat.format("{0}blik/{1}/", Constants.url, blikCode));
+        System.out.println(jsonObject);
+
         return false;
     }
 
@@ -67,7 +60,7 @@ public class PaymentMethods {
         int payment = AuxiliaryFunctions.getIntsBySemicolons("Niepoprawna kwota, spróbuj jeszcze raz: ", false);
         int ret = cashHandler(payment);
         while(true){
-            switch (ret){
+            switch (ret){dto
                 case -1:
                     return false;
                 case -2:

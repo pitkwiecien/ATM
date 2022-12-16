@@ -1,5 +1,13 @@
 package com.company;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -93,5 +101,21 @@ public class AuxiliaryFunctions {
 
     public static boolean getRandom(double percentChance){
         return Math.random() * 100 < percentChance;
+    }
+
+    public static JSONObject getJsonObject(String urlString) throws IOException, JSONException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlString).openConnection();
+        connection.setRequestProperty("access-token", "r392jnfv2-almf92nww1-ld:fwfa");
+        connection.connect();
+//        connection.setRequestMethod("GET");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line;
+        StringBuilder jsonStringBuilder = new StringBuilder();
+        while((line = reader.readLine()) != null){
+            jsonStringBuilder.append(line);
+        }
+        JSONObject jsonObj = new JSONObject(jsonStringBuilder.toString());
+        reader.close();
+        return jsonObj;
     }
 }
