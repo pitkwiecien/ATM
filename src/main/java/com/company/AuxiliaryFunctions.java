@@ -3,11 +3,11 @@ package com.company;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.*;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -118,4 +118,15 @@ public class AuxiliaryFunctions {
         reader.close();
         return jsonObj;
     }
+
+    public static String getContent(String urlString) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(urlString))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
+    }
 }
+
+
