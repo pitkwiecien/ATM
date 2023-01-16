@@ -10,7 +10,7 @@ public class    Main {
 
     public static void main(String[] args) {
         try {
-            System.out.println(AuxiliaryFunctions.getContent("https://www.barcodelookup.com/"));
+            System.out.println(AuxiliaryFunctions.getContent("https://www.barcodelookup.com/3474370260505"));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,8 +10,12 @@ import java.net.URL;
 import java.net.http.*;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 
 import static com.company.Constants.consoleScanner;
 
@@ -120,12 +124,27 @@ public class AuxiliaryFunctions {
     }
 
     public static String getContent(String urlString) throws IOException, InterruptedException {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("JavaScript");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(urlString))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
+        String pageContent = response.body();
+        try {
+            engine.eval(pageContent);
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return (String) engine.get("modifiedPageContent");
+
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(urlString))
+//                .method("GET", HttpRequest.BodyPublishers.noBody())
+//                .build();
+//        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+//        return response.body();
     }
 }
 
